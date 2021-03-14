@@ -10,10 +10,15 @@ declare module 'styled-components' {
       white: string
       black: string
       gray: string
+      detail: string
       success: string
       info: string
       warning: string
-      detail: string
+      danger: string
+      purpleLight: string
+      purpleDark: string
+      goldLight: string
+      goldDark: string
     }
   }
 }

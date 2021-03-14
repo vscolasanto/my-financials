@@ -8,11 +8,17 @@ export default {
     white: '#000',
     black: '#FFF',
     gray: '#BFBFBF',
+    detail: '#C91865',
 
     success: '#03BB85',
     info: '#3B5998',
-    warning: '#FF6961',
+    warning: '#f89563',
+    danger: '#FF6961',
 
-    detail: '#6e40c9'
+    purpleLight: '#6e40c9',
+    purpleDark: '#271052',
+
+    goldLight: '#ffdf5d',
+    goldDark: '#dbaa09'
   }
 }

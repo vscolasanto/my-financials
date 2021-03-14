@@ -1,9 +1,8 @@
-import React from 'react'
 import * as S from './styles'
 
-import Aside from 'components/Aside'
-import Content from 'components/Content'
-import MainHeader from 'components/MainHeader'
+import Aside from 'components/core/Aside'
+import Content from 'components/core/Content'
+import MainHeader from 'components/core/MainHeader'
 
 const Layout: React.FC = () => {
   return (
