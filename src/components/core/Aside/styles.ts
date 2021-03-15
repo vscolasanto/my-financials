@@ -20,8 +20,8 @@ export const LogoImg = styled.img`
 
 export const Title = styled.h2`
   font-weight: 100;
-  text-shadow: 0 0 5px ${(props) => props.theme.colors.white},
-    0 0 10px ${(props) => props.theme.colors.white};
+  text-shadow: 0 0 3px ${(props) => props.theme.colors.white},
+    0 0 5px ${(props) => props.theme.colors.white};
   margin-left: 0.5rem;
 `
 

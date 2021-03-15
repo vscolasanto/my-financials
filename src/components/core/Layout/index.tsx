@@ -4,12 +4,12 @@ import Aside from 'components/core/Aside'
 import Content from 'components/core/Content'
 import MainHeader from 'components/core/MainHeader'
 
-const Layout: React.FC = () => {
+const Layout: React.FC = ({ children }) => {
   return (
     <S.Container>
       <MainHeader />
       <Aside />
-      <Content />
+      <Content>{children}</Content>
     </S.Container>
   )
 }

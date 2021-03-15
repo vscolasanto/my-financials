@@ -15,7 +15,7 @@ export const ToggleSelector = styled(Switch).attrs<ReactSwitchProps>(
     onColor: theme.colors.purpleDark,
     offColor: theme.colors.purpleDark,
     offHandleColor: theme.colors.goldLight,
-    onHandleColor: theme.colors.goldLight
+    onHandleColor: theme.colors.purpleLight
   })
 )<ReactSwitchProps>`
   margin: 0 1rem;
@@ -32,7 +32,7 @@ export const ToggleSelector = styled(Switch).attrs<ReactSwitchProps>(
   }
 
   .react-switch-handle {
-    border: 3px solid ${(props) => props.theme.colors.goldDark};
+    border: 3px solid ${(props) => props.theme.colors.purpleDark} !important;
   }
 
   svg {

@@ -29,7 +29,7 @@ export default createGlobalStyle`
     transition: text-shadow .3s ease-in-out;
 
     &:hover {
-      text-shadow: 0 0 5px ${(props) => props.theme.colors.white};
+      text-shadow: 0 0 3px ${(props) => props.theme.colors.white};
     }
   }
 
