@@ -1,12 +1,22 @@
 import * as S from './styles'
 
-const ContentHeader: React.FC = () => {
+interface IContentHeaderProps {
+  title: string
+  lineColor: string
+  children: React.ReactNode
+}
+
+const ContentHeader: React.FC<IContentHeaderProps> = ({
+  title,
+  lineColor,
+  children
+}) => {
   return (
     <S.Container>
-      <S.TitleContainer>
-        <h2>Dashboard</h2>
+      <S.TitleContainer lineColor={lineColor}>
+        <h2>{title}</h2>
       </S.TitleContainer>
-      <S.Filters></S.Filters>
+      <S.Filters>{children}</S.Filters>
     </S.Container>
   )
 }
