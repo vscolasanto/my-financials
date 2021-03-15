@@ -3,7 +3,7 @@ import * as S from './styles'
 const Content: React.FC = () => {
   return (
     <S.Container>
-      <div>Content</div>
+      <div></div>
     </S.Container>
   )
 }

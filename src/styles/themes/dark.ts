@@ -6,7 +6,7 @@ export default {
     tertiary: '#313862',
 
     white: '#e2e3e4',
-    black: '#000',
+    black: '#292929',
     gray: '#BFBFBF',
     detail: '#2B5DFF',
 
