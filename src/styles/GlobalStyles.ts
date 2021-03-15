@@ -53,6 +53,10 @@ export default createGlobalStyle`
     text-transform: uppercase;
   }
 
+  small {
+    font-size: 1.2rem;
+  }
+
   button {
     cursor: pointer;
   }

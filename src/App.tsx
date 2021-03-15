@@ -5,14 +5,14 @@ import { ThemeProvider } from 'styled-components'
 import dark from 'styles/themes/dark'
 
 import Layout from 'components/core/Layout'
-import Dashboard from 'pages/Dashboard'
+import FinancialMovement from 'pages/FinancialMovement'
 
 const App: React.FC = () => {
   return (
     <ThemeProvider theme={dark}>
       <GlobalStyles />
       <Layout>
-        <Dashboard />
+        <FinancialMovement />
       </Layout>
     </ThemeProvider>
   )
