@@ -13,9 +13,11 @@ const FinancialMovementCard: React.FC<IFinancialMovementCardProps> = ({
   amount,
   tagColor
 }) => {
+  console.log('tagColor', tagColor)
+
   return (
-    <S.Container>
-      <S.Tag color={tagColor} />
+    <S.Container tagColor={tagColor}>
+      <S.Tag tagColor={tagColor} />
       <S.Title>
         <span>{title}</span>
         <small>{subtitle}</small>

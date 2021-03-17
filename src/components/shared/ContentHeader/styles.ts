@@ -8,7 +8,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 `
 export const TitleContainer = styled.div<ITitleContainerProps>`
   > h2 {

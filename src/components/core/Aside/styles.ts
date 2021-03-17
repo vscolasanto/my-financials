@@ -37,8 +37,4 @@ export const MenuItem = styled.a`
   display: flex;
   align-items: center;
   width: fit-content;
-
-  > svg {
-    margin-right: 0.5rem;
-  }
 `

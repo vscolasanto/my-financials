@@ -1,19 +1,19 @@
+import { InputHTMLAttributes } from 'react'
 import * as S from './styles'
 
-interface ISelectInputProps {
+interface ISelectInputProps extends InputHTMLAttributes<HTMLSelectElement> {
   options: {
     value: string | number
     label: string | number
   }[]
-  onChange: () => void
 }
 
-const SelectInput: React.FC<ISelectInputProps> = ({ options }) => {
+const SelectInput: React.FC<ISelectInputProps> = ({ options, ...props }) => {
   return (
     <S.Container>
-      <select name="" id="">
+      <select name="" id="" {...props}>
         {options?.map(({ value, label }) => (
-          <option key={value} value="A">
+          <option key={value} value={value}>
             {label}
           </option>
         ))}

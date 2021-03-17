@@ -4,10 +4,15 @@ export default createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 2.2rem;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
   }
 
   html, body, #root {
@@ -26,10 +31,19 @@ export default createGlobalStyle`
   a {
     color: ${(props) => props.theme.colors.white};
     text-decoration: none;
-    transition: text-shadow .3s ease-in-out;
+    transition: all .2s ease-in-out;
 
     &:hover {
       text-shadow: 0 0 3px ${(props) => props.theme.colors.white};
+    }
+
+    > svg {
+      margin-right: 0.5rem;
+      transition: .2s ease-in-out;
+    }
+
+    &:hover svg {
+      filter: drop-shadow(0 0 3px ${(props) => props.theme.colors.white});
     }
   }
 
