@@ -1,5 +1,12 @@
 export default [
   {
+    description: 'Presente de Natal',
+    amount: '89.90',
+    type: 'saída',
+    frequency: 'eventual',
+    date: '2019-12-15'
+  },
+  {
     description: 'Energia elétrica',
     amount: '150.55',
     type: 'saída',
