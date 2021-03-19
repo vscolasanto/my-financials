@@ -1,5 +1,12 @@
 export default [
   {
+    description: 'Curso de React',
+    amount: '25.90',
+    type: 'saída',
+    frequency: 'eventual',
+    date: '2021-03-18'
+  },
+  {
     description: 'Presente de Natal',
     amount: '89.90',
     type: 'saída',

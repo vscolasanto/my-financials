@@ -14,6 +14,7 @@ export const Filters = styled.div`
     background: none;
     color: ${(props) => props.theme.colors.white};
     transition: all 0.2s;
+    opacity: 0.5;
 
     &:hover {
       &.filterRecurrent::after {
@@ -21,6 +22,22 @@ export const Filters = styled.div`
           0 0 10px ${(props) => props.theme.colors.info};
       }
 
+      &.filterEventual::after {
+        box-shadow: 0 0 5px ${(props) => props.theme.colors.danger},
+          0 0 10px ${(props) => props.theme.colors.danger};
+      }
+    }
+
+    &.filterRecurrent.tag-activated {
+      opacity: 1;
+      &.filterRecurrent::after {
+        box-shadow: 0 0 5px ${(props) => props.theme.colors.info},
+          0 0 10px ${(props) => props.theme.colors.info};
+      }
+    }
+
+    &.filterEventual.tag-activated {
+      opacity: 1;
       &.filterEventual::after {
         box-shadow: 0 0 5px ${(props) => props.theme.colors.danger},
           0 0 10px ${(props) => props.theme.colors.danger};
@@ -34,7 +51,7 @@ export const Filters = styled.div`
     width: 5rem;
     margin: 0 auto;
     height: 0.5rem;
-    border-bottom: 8px solid ${(props) => props.theme.colors.info};
+    border-bottom: 5px solid ${(props) => props.theme.colors.info};
     transition: 0.2s ease-in-out;
   }
 
@@ -44,7 +61,14 @@ export const Filters = styled.div`
     width: 5rem;
     margin: 0 auto;
     height: 0.5rem;
-    border-bottom: 8px solid ${(props) => props.theme.colors.danger};
+    border-bottom: 5px solid ${(props) => props.theme.colors.danger};
     transition: 0.2s ease-in-out;
   }
+`
+
+export const NoContentToShow = styled.div`
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `

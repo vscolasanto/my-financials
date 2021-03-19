@@ -31,12 +31,20 @@ interface IData {
 const FinancialMovement: React.FC<IFinancialMovementeProps> = ({ match }) => {
   const { type } = match.params
   const [selectedMonth, setSelectedMonth] = React.useState(
-    String(new Date().getMonth() + 1)
+    String(new Date().getMonth())
   )
   const [selectedYear, setSelectedYear] = React.useState(
     String(new Date().getFullYear())
   )
   const [data, setData] = React.useState<IData[]>([])
+  const [selectedFrequency, setSelectedFrequency] = React.useState([
+    'recorrente',
+    'eventual'
+  ])
+
+  const listData = React.useMemo(() => {
+    return type === 'entradas' ? gains : expenses
+  }, [type])
 
   const filters = React.useMemo(() => {
     return type === 'entradas'
@@ -44,13 +52,9 @@ const FinancialMovement: React.FC<IFinancialMovementeProps> = ({ match }) => {
       : { title: 'Saídas', lineColor: '#E44C4E' }
   }, [type])
 
-  const listData = React.useMemo(() => {
-    return type === 'entradas' ? gains : expenses
-  }, [type])
-
   const months = React.useMemo(() => {
     return MONTHS.map((month, index) => ({
-      value: index + 1,
+      value: index,
       label: month
     }))
   }, [])
@@ -65,6 +69,12 @@ const FinancialMovement: React.FC<IFinancialMovementeProps> = ({ match }) => {
         uniqueYears.push(year)
       }
     })
+
+    const currentYear = new Date().getFullYear()
+
+    if (!uniqueYears.includes(currentYear)) {
+      uniqueYears.push(currentYear)
+    }
 
     return uniqueYears
       .map((year) => ({
@@ -84,6 +94,19 @@ const FinancialMovement: React.FC<IFinancialMovementeProps> = ({ match }) => {
     name === 'month' ? setSelectedMonth(value) : setSelectedYear(value)
   }
 
+  const handleFrequencyClick = (frequency: string) => {
+    const frequencyAlreadySelected = selectedFrequency.findIndex(
+      (item) => item === frequency
+    )
+
+    if (frequencyAlreadySelected >= 0) {
+      const filtered = selectedFrequency.filter((freq) => freq !== frequency)
+      setSelectedFrequency(filtered)
+    } else {
+      setSelectedFrequency((prev) => [...prev, frequency])
+    }
+  }
+
   React.useEffect(() => {
     const response = listData
       .filter((filtered) => {
@@ -91,7 +114,11 @@ const FinancialMovement: React.FC<IFinancialMovementeProps> = ({ match }) => {
         const month = String(date.getMonth())
         const year = String(date.getFullYear())
 
-        return month === selectedMonth && year === selectedYear
+        return (
+          month === selectedMonth &&
+          year === selectedYear &&
+          selectedFrequency.includes(filtered.frequency)
+        )
       })
       .map((item) => ({
         description: item.description,
@@ -100,9 +127,8 @@ const FinancialMovement: React.FC<IFinancialMovementeProps> = ({ match }) => {
         dateFormatted: formatDate(item.date),
         tagColor: item.frequency === 'recorrente' ? '#4E41F0' : '#E44C4E'
       }))
-
     setData(response)
-  }, [listData, selectedMonth, selectedYear])
+  }, [listData, selectedMonth, selectedYear, selectedFrequency])
 
   return (
     <S.Container>
@@ -122,8 +148,22 @@ const FinancialMovement: React.FC<IFinancialMovementeProps> = ({ match }) => {
       </ContentHeader>
 
       <S.Filters>
-        <button className="filterRecurrent">Recorrentes</button>
-        <button className="filterEventual">Eventuais</button>
+        <button
+          className={`filterRecurrent ${
+            selectedFrequency.includes('recorrente') && 'tag-activated'
+          }`}
+          onClick={() => handleFrequencyClick('recorrente')}
+        >
+          Recorrentes
+        </button>
+        <button
+          className={`filterEventual ${
+            selectedFrequency.includes('eventual') && 'tag-activated'
+          }`}
+          onClick={() => handleFrequencyClick('eventual')}
+        >
+          Eventuais
+        </button>
       </S.Filters>
 
       {data.map((card, i) => (
@@ -135,6 +175,12 @@ const FinancialMovement: React.FC<IFinancialMovementeProps> = ({ match }) => {
           tagColor={card.tagColor}
         />
       ))}
+
+      {data.length === 0 && (
+        <S.NoContentToShow>
+          <h1>Nenhum resultado para os filtros solicitados!</h1>
+        </S.NoContentToShow>
+      )}
     </S.Container>
   )
 }
