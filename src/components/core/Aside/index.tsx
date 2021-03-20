@@ -1,6 +1,6 @@
 import * as S from './styles'
 
-import Logo from 'assets/images/logo.svg'
+import { ReactComponent as Logo } from 'assets/images/logo.svg'
 
 import {
   RiDashboardFill,
@@ -13,10 +13,7 @@ const Aside: React.FC = () => {
   return (
     <S.Container>
       <S.Header>
-        <S.LogoImg
-          src={Logo}
-          alt="Logo em formato de cifrão - My Financials "
-        />
+        <Logo />
         <S.Title>Minhas Finanças</S.Title>
       </S.Header>
 

@@ -5,8 +5,12 @@ import { MONTHS } from 'utils/months'
 import gains from 'repositories/gains'
 import expenses from 'repositories/expenses'
 
+import { ReactComponent as Happy } from 'assets/images/happy.svg'
+
 import ContentHeader from 'components/shared/ContentHeader'
 import SelectInput from 'components/shared/SelectInput'
+import BalanceCard from 'components/shared/BalanceCard'
+import MessageBox from 'components/shared/MessageBox'
 
 const Dashboard: React.FC = () => {
   const [selectedMonth, setSelectedMonth] = React.useState<number>(
@@ -82,6 +86,37 @@ const Dashboard: React.FC = () => {
           onChange={handleChange}
         />
       </ContentHeader>
+
+      <S.Content>
+        <BalanceCard
+          title="Saldo"
+          amount={150}
+          footerLabel="Atualizado com base nas entradas e saídas"
+          icon="dollar"
+          color="#4E41F0"
+        />
+        <BalanceCard
+          title="Entradas"
+          amount={5000.0}
+          footerLabel="Atualizado com base nas entradas e saídas"
+          icon="arrowUp"
+          color="#F7931B"
+        />
+        <BalanceCard
+          title="Saídas"
+          amount={4850.0}
+          footerLabel="Atualizado com base nas entradas e saídas"
+          icon="arrowDown"
+          color="#E44C4E"
+        />
+
+        <MessageBox
+          title={'Muito bem!'}
+          description={'Suas finanças estão positivas!'}
+          footerLabel={'Continue assim. Considere investir seu saldo.'}
+          icon={<Happy />}
+        />
+      </S.Content>
     </S.Container>
   )
 }
