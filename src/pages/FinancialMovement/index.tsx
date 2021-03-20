@@ -4,7 +4,6 @@ import * as S from './styles'
 import { MONTHS } from 'utils/months'
 import formatCurrency from 'utils/formatCurrency'
 import formatDate from 'utils/formatDate'
-
 import gains from 'repositories/gains'
 import expenses from 'repositories/expenses'
 
@@ -29,28 +28,24 @@ interface IData {
 }
 
 const FinancialMovement: React.FC<IFinancialMovementeProps> = ({ match }) => {
-  const { type } = match.params
-  const [selectedMonth, setSelectedMonth] = React.useState(
-    String(new Date().getMonth())
+  const movimentType = match.params.type
+  const [selectedMonth, setSelectedMonth] = React.useState<number>(
+    new Date().getMonth()
   )
-  const [selectedYear, setSelectedYear] = React.useState(
-    String(new Date().getFullYear())
+  const [selectedYear, setSelectedYear] = React.useState<number>(
+    new Date().getFullYear()
   )
   const [data, setData] = React.useState<IData[]>([])
-  const [selectedFrequency, setSelectedFrequency] = React.useState([
+  const [frequencyFilterSelected, setFrequencyFilterSelected] = React.useState([
     'recorrente',
     'eventual'
   ])
 
-  const listData = React.useMemo(() => {
-    return type === 'entradas' ? gains : expenses
-  }, [type])
-
-  const filters = React.useMemo(() => {
-    return type === 'entradas'
-      ? { title: 'Entradas', lineColor: '#00D4AD' }
-      : { title: 'Saídas', lineColor: '#E44C4E' }
-  }, [type])
+  const pageData = React.useMemo(() => {
+    return movimentType === 'entradas'
+      ? { title: 'Entradas', lineColor: '#00D4AD', data: gains }
+      : { title: 'Saídas', lineColor: '#E44C4E', data: expenses }
+  }, [movimentType])
 
   const months = React.useMemo(() => {
     return MONTHS.map((month, index) => ({
@@ -62,7 +57,7 @@ const FinancialMovement: React.FC<IFinancialMovementeProps> = ({ match }) => {
   const years = React.useMemo(() => {
     const uniqueYears: number[] = []
 
-    listData.forEach((item) => {
+    pageData.data.forEach((item) => {
       const year = new Date(item.date).getFullYear()
 
       if (!uniqueYears.includes(year)) {
@@ -82,42 +77,51 @@ const FinancialMovement: React.FC<IFinancialMovementeProps> = ({ match }) => {
         label: year
       }))
       .sort((a, b) => b.label - a.label)
-  }, [listData])
+  }, [pageData.data])
 
   const handleChange = (
     event:
       | React.FormEvent<HTMLInputElement>
       | React.FormEvent<HTMLSelectElement>
   ) => {
-    const { name, value } = event.currentTarget
+    try {
+      const { name, value } = event.currentTarget
 
-    name === 'month' ? setSelectedMonth(value) : setSelectedYear(value)
+      name === 'month'
+        ? setSelectedMonth(Number(value))
+        : setSelectedYear(Number(value))
+    } catch (err) {
+      console.error(err)
+      throw new Error('Invalid value. Year and Month must be a Number.')
+    }
   }
 
   const handleFrequencyClick = (frequency: string) => {
-    const frequencyAlreadySelected = selectedFrequency.findIndex(
+    const frequencyAlreadySelected = frequencyFilterSelected.findIndex(
       (item) => item === frequency
     )
 
     if (frequencyAlreadySelected >= 0) {
-      const filtered = selectedFrequency.filter((freq) => freq !== frequency)
-      setSelectedFrequency(filtered)
+      const filtered = frequencyFilterSelected.filter(
+        (freq) => freq !== frequency
+      )
+      setFrequencyFilterSelected(filtered)
     } else {
-      setSelectedFrequency((prev) => [...prev, frequency])
+      setFrequencyFilterSelected((prev) => [...prev, frequency])
     }
   }
 
   React.useEffect(() => {
-    const response = listData
+    const response = pageData.data
       .filter((filtered) => {
         const date = new Date(filtered.date)
-        const month = String(date.getMonth())
-        const year = String(date.getFullYear())
+        const month = date.getMonth()
+        const year = date.getFullYear()
 
         return (
           month === selectedMonth &&
           year === selectedYear &&
-          selectedFrequency.includes(filtered.frequency)
+          frequencyFilterSelected.includes(filtered.frequency)
         )
       })
       .map((item) => ({
@@ -128,11 +132,11 @@ const FinancialMovement: React.FC<IFinancialMovementeProps> = ({ match }) => {
         tagColor: item.frequency === 'recorrente' ? '#4E41F0' : '#E44C4E'
       }))
     setData(response)
-  }, [listData, selectedMonth, selectedYear, selectedFrequency])
+  }, [pageData.data, selectedMonth, selectedYear, frequencyFilterSelected])
 
   return (
     <S.Container>
-      <ContentHeader title={filters.title} lineColor={filters.lineColor}>
+      <ContentHeader title={pageData.title} lineColor={pageData.lineColor}>
         <SelectInput
           name="month"
           options={months}
@@ -150,7 +154,7 @@ const FinancialMovement: React.FC<IFinancialMovementeProps> = ({ match }) => {
       <S.Filters>
         <button
           className={`filterRecurrent ${
-            selectedFrequency.includes('recorrente') && 'tag-activated'
+            frequencyFilterSelected.includes('recorrente') && 'tag-activated'
           }`}
           onClick={() => handleFrequencyClick('recorrente')}
         >
@@ -158,7 +162,7 @@ const FinancialMovement: React.FC<IFinancialMovementeProps> = ({ match }) => {
         </button>
         <button
           className={`filterEventual ${
-            selectedFrequency.includes('eventual') && 'tag-activated'
+            frequencyFilterSelected.includes('eventual') && 'tag-activated'
           }`}
           onClick={() => handleFrequencyClick('eventual')}
         >
@@ -166,21 +170,22 @@ const FinancialMovement: React.FC<IFinancialMovementeProps> = ({ match }) => {
         </button>
       </S.Filters>
 
-      {data.map((card, i) => (
-        <FinancialMovementCard
-          key={i}
-          title={card.description}
-          subtitle={card.dateFormatted}
-          amount={card.amountFormatted}
-          tagColor={card.tagColor}
-        />
-      ))}
-
-      {data.length === 0 && (
-        <S.NoContentToShow>
-          <h1>Nenhum resultado para os filtros solicitados!</h1>
-        </S.NoContentToShow>
-      )}
+      <S.Content>
+        {data.map((card, i) => (
+          <FinancialMovementCard
+            key={i}
+            title={card.description}
+            subtitle={card.dateFormatted}
+            amount={card.amountFormatted}
+            tagColor={card.tagColor}
+          />
+        ))}
+        {data.length === 0 && (
+          <S.NoContentToShow>
+            <h1>Nenhum resultado para os filtros solicitados!</h1>
+          </S.NoContentToShow>
+        )}
+      </S.Content>
     </S.Container>
   )
 }
