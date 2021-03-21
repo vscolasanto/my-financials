@@ -13,6 +13,7 @@ import ContentHeader from 'components/shared/ContentHeader'
 import SelectInput from 'components/shared/SelectInput'
 import BalanceCard from 'components/shared/BalanceCard'
 import MessageBox from 'components/shared/MessageBox'
+import PieChartBox from 'components/shared/PieChartBox'
 
 const Dashboard: React.FC = () => {
   const [selectedMonth, setSelectedMonth] = React.useState<number>(
@@ -128,6 +129,29 @@ const Dashboard: React.FC = () => {
     }
   }, [totalBalance])
 
+  const relationGainVsExpanses = React.useMemo(() => {
+    const total = totalGains + totalExpenses
+    const percentGains = (totalGains / total) * 100
+    const percentExpenses = (totalExpenses / total) * 100
+
+    const data = [
+      {
+        name: 'Entradas',
+        value: totalGains,
+        percent: Number(percentGains.toFixed(1)),
+        color: '#00D4AD'
+      },
+      {
+        name: 'Saídas',
+        value: totalExpenses,
+        percent: Number(percentExpenses.toFixed(1)),
+        color: '#E44C4E'
+      }
+    ]
+
+    return data
+  }, [totalGains, totalExpenses])
+
   const handleChange = (
     event:
       | React.FormEvent<HTMLInputElement>
@@ -175,7 +199,7 @@ const Dashboard: React.FC = () => {
           amount={totalGains}
           footerLabel="Atualizado com base nas entradas e saídas"
           icon="arrowUp"
-          color="#F7931B"
+          color="#00D4AD"
         />
         <BalanceCard
           title="Saídas"
@@ -191,6 +215,8 @@ const Dashboard: React.FC = () => {
           footerLabel={messageBalance.footerLabel}
           icon={messageBalance.icon}
         />
+
+        <PieChartBox data={relationGainVsExpanses} />
       </S.Content>
     </S.Container>
   )
