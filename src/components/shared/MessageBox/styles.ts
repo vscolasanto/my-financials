@@ -19,4 +19,10 @@ export const Container = styled.div`
       margin-left: 0.5rem;
     }
   }
+
+  footer {
+    span {
+      font-size: 1.3rem;
+    }
+  }
 `
