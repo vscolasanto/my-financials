@@ -14,6 +14,7 @@ import SelectInput from 'components/shared/SelectInput'
 import BalanceCard from 'components/shared/BalanceCard'
 import MessageBox from 'components/shared/MessageBox'
 import PieChartBox from 'components/shared/PieChartBox'
+import HistoryBox from 'components/shared/HistoryBox'
 
 const Dashboard: React.FC = () => {
   const [selectedMonth, setSelectedMonth] = React.useState<number>(
@@ -152,6 +153,57 @@ const Dashboard: React.FC = () => {
     return data
   }, [totalGains, totalExpenses])
 
+  const historyData = React.useMemo(() => {
+    return MONTHS.map((_, month) => {
+      let amountEntry = 0
+      gains.forEach((gain) => {
+        const date = new Date(gain.date)
+        const gainMonth = date.getMonth()
+        const gainYear = date.getFullYear()
+
+        if (gainMonth === month && gainYear === selectedYear) {
+          try {
+            amountEntry += Number(gain.amount)
+          } catch (err) {
+            console.error(err)
+            throw new Error('amountEntry is invalid. Must be a number!')
+          }
+        }
+      })
+
+      let amountOutput = 0
+      expenses.forEach((expense) => {
+        const date = new Date(expense.date)
+        const expenseMonth = date.getMonth()
+        const expenseYear = date.getFullYear()
+
+        if (expenseMonth === month && expenseYear === selectedYear) {
+          try {
+            amountOutput += Number(expense.amount)
+          } catch (err) {
+            console.error(err)
+            throw new Error('amountOutput is invalid. Must be a number!')
+          }
+        }
+      })
+
+      return {
+        monthNumber: month,
+        month: MONTHS[month].substr(0, 3),
+        amountEntry,
+        amountOutput
+      }
+    }).filter((item) => {
+      const currentMonth = new Date().getMonth()
+      const currentYear = new Date().getFullYear()
+
+      return (
+        (selectedYear === currentYear && item.monthNumber <= currentMonth) ||
+        selectedYear < currentYear
+      )
+    })
+  }, [selectedYear])
+
   const handleChange = (
     event:
       | React.FormEvent<HTMLInputElement>
@@ -208,15 +260,19 @@ const Dashboard: React.FC = () => {
           icon="arrowDown"
           color="#E44C4E"
         />
-
         <MessageBox
           title={messageBalance.title}
           description={messageBalance.description}
           footerLabel={messageBalance.footerLabel}
           icon={messageBalance.icon}
         />
-
         <PieChartBox data={relationGainVsExpanses} />
+
+        <HistoryBox
+          data={historyData}
+          lineColorAmountEntry="#00D4AD"
+          lineColorAmountOutput="#E44C4E"
+        />
       </S.Content>
     </S.Container>
   )
