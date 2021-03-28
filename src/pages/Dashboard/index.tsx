@@ -290,22 +290,25 @@ const Dashboard: React.FC = () => {
     ]
   }, [selectedMonth, selectedYear])
 
-  const handleChange = (
-    event:
-      | React.FormEvent<HTMLInputElement>
-      | React.FormEvent<HTMLSelectElement>
-  ) => {
-    try {
-      const { name, value } = event.currentTarget
+  const handleChange = React.useCallback(
+    (
+      event:
+        | React.FormEvent<HTMLInputElement>
+        | React.FormEvent<HTMLSelectElement>
+    ) => {
+      try {
+        const { name, value } = event.currentTarget
 
-      name === 'month'
-        ? setSelectedMonth(Number(value))
-        : setSelectedYear(Number(value))
-    } catch (err) {
-      console.error(err)
-      throw new Error('Invalid value. Year and Month must be a Number.')
-    }
-  }
+        name === 'month'
+          ? setSelectedMonth(Number(value))
+          : setSelectedYear(Number(value))
+      } catch (err) {
+        console.error(err)
+        throw new Error('Invalid value. Year and Month must be a Number.')
+      }
+    },
+    []
+  )
 
   return (
     <S.Container>

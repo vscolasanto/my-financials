@@ -3,14 +3,17 @@ import * as S from './styles'
 
 import { RiMoonClearFill, RiSunFill } from 'react-icons/ri'
 
-const Toggle: React.FC = () => {
-  const [check, setCheck] = React.useState(true)
+interface IToggleProps {
+  checked: boolean
+  onChange: () => void
+}
 
+const Toggle: React.FC<IToggleProps> = ({ checked, onChange }) => {
   return (
     <S.Container>
       <S.ToggleSelector
-        checked={check}
-        onChange={() => setCheck(!check)}
+        checked={checked}
+        onChange={onChange}
         checkedIcon={<RiMoonClearFill />}
         uncheckedIcon={<RiSunFill />}
         height={24}
