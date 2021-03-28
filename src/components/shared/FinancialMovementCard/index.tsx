@@ -12,17 +12,15 @@ const FinancialMovementCard: React.FC<IFinancialMovementCardProps> = ({
   subtitle,
   amount,
   tagColor
-}) => {
-  return (
-    <S.Container tagColor={tagColor}>
-      <S.Tag tagColor={tagColor} />
-      <S.Title>
-        <span>{title}</span>
-        <small>{subtitle}</small>
-      </S.Title>
-      <h2>{amount}</h2>
-    </S.Container>
-  )
-}
+}) => (
+  <S.Container tagColor={tagColor}>
+    <S.Tag tagColor={tagColor} />
+    <S.Title>
+      <span>{title}</span>
+      <small>{subtitle}</small>
+    </S.Title>
+    <h2>{amount}</h2>
+  </S.Container>
+)
 
 export default FinancialMovementCard

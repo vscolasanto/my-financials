@@ -9,34 +9,32 @@ import {
   RiLogoutCircleLine
 } from 'react-icons/ri'
 
-const Aside: React.FC = () => {
-  return (
-    <S.Container>
-      <S.Header>
-        <Logo />
-        <S.Title>Minhas Finanças</S.Title>
-      </S.Header>
+const Aside: React.FC = () => (
+  <S.Container>
+    <S.Header>
+      <Logo />
+      <S.Title>Minhas Finanças</S.Title>
+    </S.Header>
 
-      <S.MenuContainer>
-        <S.MenuItem href="/dashboard">
-          <RiDashboardFill />
-          Dashboard
-        </S.MenuItem>
-        <S.MenuItem href="/movimento/entradas">
-          <RiArrowUpLine />
-          Entradas
-        </S.MenuItem>
-        <S.MenuItem href="/movimento/saidas">
-          <RiArrowDownLine />
-          Saídas
-        </S.MenuItem>
-        <S.MenuItem href="opa">
-          <RiLogoutCircleLine />
-          Sair
-        </S.MenuItem>
-      </S.MenuContainer>
-    </S.Container>
-  )
-}
+    <S.MenuContainer>
+      <S.MenuItem href="/dashboard">
+        <RiDashboardFill />
+        Dashboard
+      </S.MenuItem>
+      <S.MenuItem href="/movimento/entradas">
+        <RiArrowUpLine />
+        Entradas
+      </S.MenuItem>
+      <S.MenuItem href="/movimento/saidas">
+        <RiArrowDownLine />
+        Saídas
+      </S.MenuItem>
+      <S.MenuItem href="opa">
+        <RiLogoutCircleLine />
+        Sair
+      </S.MenuItem>
+    </S.MenuContainer>
+  </S.Container>
+)
 
 export default Aside

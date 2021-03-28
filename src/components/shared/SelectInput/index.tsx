@@ -8,18 +8,16 @@ interface ISelectInputProps extends InputHTMLAttributes<HTMLSelectElement> {
   }[]
 }
 
-const SelectInput: React.FC<ISelectInputProps> = ({ options, ...props }) => {
-  return (
-    <S.Container>
-      <select name="" id="" {...props}>
-        {options?.map(({ value, label }) => (
-          <option key={value} value={value}>
-            {label}
-          </option>
-        ))}
-      </select>
-    </S.Container>
-  )
-}
+const SelectInput: React.FC<ISelectInputProps> = ({ options, ...props }) => (
+  <S.Container>
+    <select name="" id="" {...props}>
+      {options?.map(({ value, label }) => (
+        <option key={value} value={value}>
+          {label}
+        </option>
+      ))}
+    </select>
+  </S.Container>
+)
 
 export default SelectInput

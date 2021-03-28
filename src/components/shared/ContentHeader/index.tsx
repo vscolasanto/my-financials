@@ -10,15 +10,13 @@ const ContentHeader: React.FC<IContentHeaderProps> = ({
   title,
   lineColor,
   children
-}) => {
-  return (
-    <S.Container>
-      <S.TitleContainer lineColor={lineColor}>
-        <h2>{title}</h2>
-      </S.TitleContainer>
-      <S.Filters>{children}</S.Filters>
-    </S.Container>
-  )
-}
+}) => (
+  <S.Container>
+    <S.TitleContainer lineColor={lineColor}>
+      <h2>{title}</h2>
+    </S.TitleContainer>
+    <S.Filters>{children}</S.Filters>
+  </S.Container>
+)
 
 export default ContentHeader
