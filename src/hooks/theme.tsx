@@ -1,32 +1,12 @@
 import React, { createContext } from 'react'
+import { DefaultTheme } from 'styled-components'
 
 import dark from 'styles/themes/dark'
 import light from 'styles/themes/light'
 
 interface IThemeContext {
   toggleTheme: () => void
-  theme: ITheme
-}
-
-interface ITheme {
-  title: string
-  colors: {
-    primary: string
-    secondary: string
-    tertiary: string
-    white: string
-    black: string
-    gray: string
-    detail: string
-    success: string
-    info: string
-    warning: string
-    danger: string
-    purpleLight: string
-    purpleDark: string
-    goldLight: string
-    goldDark: string
-  }
+  theme: DefaultTheme
 }
 
 const ThemeContext = createContext<IThemeContext>({} as IThemeContext)
@@ -38,7 +18,7 @@ function useTheme(): IThemeContext {
 }
 
 const ThemeProvider: React.FC = ({ children }) => {
-  const [theme, setTheme] = React.useState<ITheme>(() => {
+  const [theme, setTheme] = React.useState<DefaultTheme>(() => {
     const savedTheme = localStorage.getItem('$financials:theme')
 
     if (savedTheme) {

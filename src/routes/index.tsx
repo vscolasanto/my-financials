@@ -1,5 +1,11 @@
-import Routes from './routes'
+import { BrowserRouter } from 'react-router-dom'
 
-const App = () => <Routes />
+import Login from 'pages/Login'
+
+const App = () => (
+  <BrowserRouter>
+    <Login />
+  </BrowserRouter>
+)
 
 export default App

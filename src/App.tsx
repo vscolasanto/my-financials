@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components'
 
 import { useTheme } from 'hooks/theme'
 
-import Routes from 'routes/routes'
+import Routes from 'routes'
 
 const App: React.FC = () => {
   const { theme } = useTheme()
