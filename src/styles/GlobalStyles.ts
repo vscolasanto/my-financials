@@ -28,25 +28,6 @@ export default createGlobalStyle`
     font-family: 'Roboto', sans-serif;
   }
 
-  a {
-    color: ${(props) => props.theme.colors.white};
-    text-decoration: none;
-    transition: all .2s ease-in-out;
-
-    &:hover {
-      text-shadow: 0 0 3px ${(props) => props.theme.colors.white};
-    }
-
-    > svg {
-      margin-right: 0.5rem;
-      transition: .2s ease-in-out;
-    }
-
-    &:hover svg {
-      filter: drop-shadow(0 0 3px ${(props) => props.theme.colors.white});
-    }
-  }
-
   a, p, span, svg {
     font-size: 1.6rem;
   }

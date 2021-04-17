@@ -43,7 +43,7 @@ const HistoryBox: React.FC<IHistoryBoxProps> = ({
       </S.LegendContainer>
     </S.Header>
     <S.ChartContainer>
-      <ResponsiveContainer>
+      <ResponsiveContainer height={202.44}>
         <LineChart
           data={data}
           margin={{ top: 5, right: 20, bottom: 5, left: 20 }}

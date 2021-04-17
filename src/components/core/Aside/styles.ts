@@ -37,4 +37,35 @@ export const MenuItem = styled.a`
   display: flex;
   align-items: center;
   width: fit-content;
+  color: ${(props) => props.theme.colors.white};
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+
+  svg {
+    margin-right: 0.5rem;
+  }
+
+  &:hover {
+    transform: translateX(0.5rem);
+  }
+`
+
+export const MenuButton = styled.button`
+  margin: 0.5rem 0;
+  color: ${(props) => props.theme.colors.white};
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  border: none;
+  background: none;
+  font-size: 1.6rem;
+  transition: all 0.2s ease-in-out;
+
+  svg {
+    margin-right: 0.5rem;
+  }
+
+  &:hover {
+    transform: translateX(0.5rem);
+  }
 `

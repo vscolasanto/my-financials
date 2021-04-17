@@ -35,8 +35,6 @@ const BalanceCard: React.FC<BalancedCardProps> = ({
     }
   }, [icon])
 
-  console.log()
-
   return (
     <S.Container color={color}>
       <div>
